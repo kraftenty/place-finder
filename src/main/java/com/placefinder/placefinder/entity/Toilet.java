@@ -30,10 +30,10 @@ public class Toilet {
     @Column(name= "opening_hours", nullable = false)
     private String openingHours; // 개방시간
 
-    @Column(name = "emergency_bell", nullable = true)
-    private String emergencyBell; // 비상벨. 없으면 null
+    @Column(name = "emergency_bell", nullable = false)
+    private String emergencyBell; // 비상벨
 
-    @Column(name = "diaper_change", nullable = true)
-    private String diaperChange; // 기저귀 교환대. 없으면 null
+    @Column(name = "diaper_change", nullable = false)
+    private String diaperChange; // 기저귀 교환대
 
 }

@@ -48,8 +48,8 @@ public class PublicFacility {
     @Column(name = "weekend_closing", nullable = false)
     private String weekendClosing; // 주말 운영 종료
 
-    @Column(name = "fee", nullable = true)
-    private Integer fee; // 이용료. 없으면 null
+    @Column(name = "fee", nullable = false)
+    private String fee; // 이용료
 
     @Column(name = "capacity", nullable = true)
     private Integer capacity; // 수용가능인원. 없으면 null

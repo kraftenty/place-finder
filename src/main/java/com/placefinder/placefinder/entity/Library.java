@@ -71,5 +71,7 @@ public class Library {
     @Column(name = "available_book_rent_days", nullable = false)
     private Long availableBookRentDays; // 대출 가능 일수
 
+    @Column(name = "seat_capacity", nullable = false)
+    private Long seatCapacity; // 열람 좌석 수
 
 }

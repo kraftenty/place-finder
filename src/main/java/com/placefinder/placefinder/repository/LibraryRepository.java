@@ -2,15 +2,19 @@ package com.placefinder.placefinder.repository;
 
 import com.placefinder.placefinder.entity.Library;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
 public class LibraryRepository {
+
+    @PersistenceContext
     private EntityManager em;
 
-    public void save(Library library) {
+    public Long save(Library library) {
         em.persist(library);
+        return library.getId();
     }
 
     public List<Library> findAll() {
@@ -18,8 +22,19 @@ public class LibraryRepository {
             .getResultList();
     }
 
-    /**
-     * TODO
-     * - findById, update, delete 추가
-     */
+    public Library findById(Long id) {
+        return em.find(Library.class, id);
+    }
+
+    public void update(Library library) {
+        em.merge(library);
+    }
+
+    public void delete(Long id) {
+        Library library = em.find(Library.class, id);
+        if (library != null) {
+            em.remove(library);
+        }
+    }
+
 }

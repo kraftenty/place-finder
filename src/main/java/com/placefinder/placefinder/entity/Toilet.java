@@ -3,9 +3,10 @@ package com.placefinder.placefinder.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Getter
+@Getter @Setter
 @AllArgsConstructor
 public class Toilet {
 

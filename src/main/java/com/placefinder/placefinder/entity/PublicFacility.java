@@ -3,9 +3,10 @@ package com.placefinder.placefinder.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Getter
+@Getter @Setter
 @AllArgsConstructor
 public class PublicFacility {
 
@@ -52,7 +53,7 @@ public class PublicFacility {
     private String fee; // 이용료
 
     @Column(name = "capacity", nullable = true)
-    private Integer capacity; // 수용가능인원. 없으면 null
+    private Long capacity; // 수용가능인원. 없으면 null
 
     @Column(name = "amenities", nullable = true)
     private String amenities; // 부대시설정보. 없으면 null

@@ -11,9 +11,11 @@ import java.time.LocalTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Getter
+@Setter
 @AllArgsConstructor
 public class Library {
 
@@ -45,22 +47,22 @@ public class Library {
     private String closedDays; // 휴관일
 
     @Column(name = "week_day_opening", nullable = false)
-    private LocalTime weekDayOpening; // 평일 운영 시작
+    private String weekDayOpening; // 평일 운영 시작
 
     @Column(name = "week_day_closing", nullable = false)
-    private LocalTime weekDayClosing; // 평일 운영 종료
+    private String weekDayClosing; // 평일 운영 종료
 
     @Column(name = "saturday_opening", nullable = false)
-    private LocalTime saturdayOpening; // 토요일 운영 시작
+    private String saturdayOpening; // 토요일 운영 시작
 
     @Column(name = "saturday_closing", nullable = false)
-    private LocalTime saturdayClosing; // 토요일 운영 종료
+    private String saturdayClosing; // 토요일 운영 종료
 
     @Column(name = "holiday_opening", nullable = false)
-    private LocalTime holidayOpening; // 공휴일 운영 시작
+    private String holidayOpening; // 공휴일 운영 시작
 
     @Column(name = "holiday_closing", nullable = false)
-    private LocalTime holidayClosing; // 공유일 운영 종료
+    private String holidayClosing; // 공유일 운영 종료
 
     @Column(name = "book_count", nullable = false)
     private Long bookCount; // 도서 수

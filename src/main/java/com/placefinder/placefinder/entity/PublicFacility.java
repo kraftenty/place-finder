@@ -3,14 +3,13 @@ package com.placefinder.placefinder.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Getter @Setter
+@Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class PublicFacility {
-
-    public PublicFacility() { }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

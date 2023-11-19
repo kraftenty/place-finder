@@ -7,19 +7,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-import java.time.LocalTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Library {
-
-    public Library() { }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

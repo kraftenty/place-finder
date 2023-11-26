@@ -37,7 +37,7 @@ public class UserRepository {
         em.flush();
     }
 
-    public void delete(String id) {
+    public void delete(Long id) {
         User user = em.find(User.class, id);
         if (user != null) {
             em.remove(user);

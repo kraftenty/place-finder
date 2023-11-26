@@ -31,8 +31,14 @@ public class UserService {
         }
     }
 
+    // 회원 탈퇴
+    @Transactional
+    public void delete(Long id) {
+        userRepository.delete(id);
+    }
+
     // 회원 전체 조회
-    public List<User> findUsers() {
+    public List<User> findAllUser() {
         return userRepository.findAll();
     }
 

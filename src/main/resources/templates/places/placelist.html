@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>placelist</title>
+</head>
+<body>
+<h1>placelist</h1>
+<hr>
+<ul>
+  <li th:each="place : ${places}">
+    <p>이름: <span th:text="${place.name}">이름</span></p>
+    <p>주소: <span th:text="${place.address}">주소</span></p>
+    <p>위도: <span th:text="${place.latitude}">위도</span></p>
+    <p>경도: <span th:text="${place.longitude}">경도</span></p>
+    <p><a th:href="/placelist/${place.type}/${place.id}"</p>
+  </li>
+</ul>
+</body>
+</html>

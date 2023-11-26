@@ -18,6 +18,12 @@ public class ToiletRepository {
         return toilet.getId();
     }
 
+    public void saveAll(List<Toilet> toilets) {
+        for (Toilet toilet : toilets) {
+            em.persist(toilet);
+        }
+    }
+
     public List<Toilet> findAll() {
         return em.createQuery("select t from Toilet t", Toilet.class)
             .getResultList();

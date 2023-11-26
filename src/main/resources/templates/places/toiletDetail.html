@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>toilet detail</title>
+    <title>Toilet Detail</title>
 </head>
 <body>
-<h1>toilet detail</h1>
+<h1>Toilet Detail</h1>
+<div>
+    <p>ID: <span th:text="${toilet.id}"></span></p>
+    <p>이름: <span th:text="${toilet.name}"></span></p>
+    <p>주소: <span th:text="${toilet.address}"></span></p>
+    <p>위도: <span th:text="${toilet.latitude}"></span></p>
+    <p>경도: <span th:text="${toilet.longitude}"></span></p>
+    <p>개방시간: <span th:text="${toilet.openingHours}"></span></p>
+    <p>비상벨: <span th:text="${toilet.emergencyBell}"></span></p>
+    <p>기저귀 교환대: <span th:text="${toilet.diaperChange}"></span></p>
+</div>
 </body>
 </html>

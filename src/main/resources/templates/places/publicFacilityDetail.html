@@ -1,10 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>public facility detail</title>
+    <title>Public Facility Detail</title>
 </head>
 <body>
-<h1>public facility detail</h1>
+<h1>Public Facility Detail</h1>
+<div>
+    <p>ID: <span th:text="${publicFacility.id}"></span></p>
+    <p>이름: <span th:text="${publicFacility.name}"></span></p>
+    <p>주소: <span th:text="${publicFacility.address}"></span></p>
+    <p>위도: <span th:text="${publicFacility.latitude}"></span></p>
+    <p>경도: <span th:text="${publicFacility.longitude}"></span></p>
+    <p>전화번호: <span th:text="${publicFacility.phone} ?: '정보 없음'"></span></p>
+    <p>홈페이지: <a th:href="${publicFacility.website}" th:text="${publicFacility.website} ?: '정보 없음'"></a></p>
+    <p>휴관일: <span th:text="${publicFacility.closedDays}"></span></p>
+    <p>평일 운영 시작: <span th:text="${publicFacility.weekDayOpening}"></span></p>
+    <p>평일 운영 종료: <span th:text="${publicFacility.weekDayClosing}"></span></p>
+    <p>주말 운영 시작: <span th:text="${publicFacility.weekendOpening}"></span></p>
+    <p>주말 운영 종료: <span th:text="${publicFacility.weekendClosing}"></span></p>
+    <p>이용료: <span th:text="${publicFacility.fee}"></span></p>
+    <p>수용가능인원: <span th:text="${publicFacility.capacity} ?: '정보 없음'"></span></p>
+    <p>부대시설정보: <span th:text="${publicFacility.amenities} ?: '정보 없음'"></span></p>
+    <p>신청방법: <span th:text="${publicFacility.howToApply} ?: '정보 없음'"></span></p>
+</div>
 </body>
 </html>

@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>library detail</title>
+    <title>Library Detail</title>
 </head>
 <body>
-<h1>library detail</h1>
+<h1>Library Detail</h1>
+<div>
+    <p>ID: <span th:text="${library.id}"></span></p>
+    <p>이름: <span th:text="${library.name}"></span></p>
+    <p>주소: <span th:text="${library.address}"></span></p>
+    <p>위도: <span th:text="${library.latitude}"></span></p>
+    <p>경도: <span th:text="${library.longitude}"></span></p>
+    <p>전화번호: <span th:text="${library.phone} ?: '정보 없음'"></span></p>
+    <p>홈페이지: <a th:href="${library.website}" th:text="${library.website} ?: '정보 없음'"></a></p>
+    <p>휴관일: <span th:text="${library.closedDays}"></span></p>
+    <p>평일 운영 시작: <span th:text="${library.weekDayOpening}"></span></p>
+    <p>평일 운영 종료: <span th:text="${library.weekDayClosing}"></span></p>
+    <p>토요일 운영 시작: <span th:text="${library.saturdayOpening}"></span></p>
+    <p>토요일 운영 종료: <span th:text="${library.saturdayClosing}"></span></p>
+    <p>공휴일 운영 시작: <span th:text="${library.holidayOpening}"></span></p>
+    <p>공휴일 운영 종료: <span th:text="${library.holidayClosing}"></span></p>
+    <p>도서 수: <span th:text="${library.bookCount}"></span></p>
+    <p>대출 가능 권수: <span th:text="${library.availableBookRentCount}"></span></p>
+    <p>대출 가능 일수: <span th:text="${library.availableBookRentDays}"></span></p>
+    <p>열람 좌석 수: <span th:text="${library.seatCapacity}"></span></p>
+</div>
 </body>
 </html>

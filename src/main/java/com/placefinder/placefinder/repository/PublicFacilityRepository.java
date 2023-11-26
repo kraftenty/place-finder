@@ -18,6 +18,12 @@ public class PublicFacilityRepository {
         return publicFacility.getId();
     }
 
+    public void saveAll(List<PublicFacility> publicFacilities) {
+        for (PublicFacility publicFacility : publicFacilities) {
+            em.persist(publicFacility);
+        }
+    }
+
     public List<PublicFacility> findAll() {
         return em.createQuery("select p from PublicFacility p", PublicFacility.class)
             .getResultList();

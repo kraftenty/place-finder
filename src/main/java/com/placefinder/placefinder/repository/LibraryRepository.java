@@ -17,6 +17,12 @@ public class LibraryRepository {
         return library.getId();
     }
 
+    public void saveAll(List<Library> libraries) {
+        for (Library library : libraries) {
+            em.persist(library);
+        }
+    }
+
     public List<Library> findAll() {
         return em.createQuery("select l from Library l", Library.class)
             .getResultList();

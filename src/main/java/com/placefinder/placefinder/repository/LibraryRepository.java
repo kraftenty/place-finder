@@ -27,7 +27,7 @@ public class LibraryRepository {
     }
 
     public void update(Library library) {
-        em.merge(library);
+        em.flush();
     }
 
     public void delete(Long id) {

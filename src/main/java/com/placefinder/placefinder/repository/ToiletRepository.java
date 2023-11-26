@@ -28,7 +28,7 @@ public class ToiletRepository {
     }
 
     public void update(Toilet toilet) {
-        em.merge(toilet);
+        em.flush();
     }
 
     public void delete(Long id) {

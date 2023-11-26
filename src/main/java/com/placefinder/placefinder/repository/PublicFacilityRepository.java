@@ -28,7 +28,7 @@ public class PublicFacilityRepository {
     }
 
     public void update(PublicFacility publicFacility) {
-        em.merge(publicFacility);
+        em.flush();
     }
 
     public void delete(Long id) {

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>유저 로그인</title>
+  <style>
+    .form-normal {
+      border-color: blue;
+    }
+    .form-error {
+      border-color: red;
+    }
+  </style>
+</head>
+<body>
+<h1>유저 로그인</h1>
+<hr>
+<form role="form" action="/user/login" th:object="${userDTO}" method="post">
+
+    <label th:for="name">이름</label>
+    <input type="text" th:field="*{name}" class="form-normal" placeholder="이름을 입력하세요."
+           th:class="${#fields.hasErrors('name')}? 'form-error' : 'form-normal'">
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">이름 관련 오류 메시지</p>
+    <br>
+
+    <label th:for="password">비밀번호</label>
+    <input type="password" th:field="*{password}" class="form-normal" placeholder="비밀번호를 입력하세요."
+           th:class="${#fields.hasErrors('password')}? 'form-error' : 'form-normal'">
+    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">비밀번호 관련 오류 메시지</p>
+
+    <button type="submit">로그인</button>
+</form>
+<a href="/user/new"><button>회원가입</button></a>
+
+</body>
+</html>

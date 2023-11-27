@@ -15,7 +15,7 @@
 <body>
 <h1>회원가입</h1>
 <hr>
-<form role="form" action="/users/new" th:object="${userDTO}" method="post">
+<form role="form" action="/user/new" th:object="${userDTO}" method="post" onsubmit="alert('가입이 완료되었습니다.')">
 
   <!--이름 입력 필드-->
   <label th:for="name">이름</label>

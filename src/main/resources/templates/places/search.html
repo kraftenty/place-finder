@@ -2,43 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Place Search</title>
 </head>
 <body>
-<h1>Home</h1>
-<hr>
-<p th:text="'안녕하세요, ' + ${username} + '님!'" ></p>
-
-<form id="locationForm" action="/place/search/result" method="get" onsubmit="return checkIfGeoLocationLoaded()">
+<h1>Place Search</h1>
+<form id="locationForm" action="/place/search/result" method="post" onsubmit="return checkIfGeoLocationLoaded()">
     <label><input type="radio" name="type" value="library" checked>도서관</label>
     <label><input type="radio" name="type" value="publicfacility">공공시설</label>
     <label><input type="radio" name="type" value="toilet">화장실</label>
 
     <br>
-    1km <input type="range" min="1" max="5" step="1" value="3" name="distance">  5km
+    <input type="range" min="1" max="5" step="1" value="3" name="distance"> 1km ~ 5km
     <br>
     <input type="hidden" id="lat" name="lat" value="">
     <input type="hidden" id="lng" name="lng" value="">
     <button type="submit">위치 기반 검색</button>
 </form>
-<br>
-<button onclick="confirmcLogout()">로그아웃</button>
-<button onclick="confirmDelete()">회원탈퇴</button>
-<a href="/user/update"><button>비밀번호 변경</button></a>
 
 <script>
-    function confirmcLogout() {
-        if (confirm("로그아웃 하시겠습니까?")) {
-            location.href = "/user/logout";
-        }
-    }
-    function confirmDelete() {
-        if (confirm("정말로 회원탈퇴 하시겠습니까?")) {
-            alert("회원탈퇴가 완료되었습니다.")
-            location.href = "/user/delete";
-        }
-    }
-
     let isGeoLocationLoaded = false;
 
     function checkIfGeoLocationLoaded() {

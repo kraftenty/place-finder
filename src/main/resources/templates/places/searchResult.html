@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Place Search Results</title>
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<h1>Place Search Results</h1>
+<a href="/"><button>홈으로</button></a>
+<hr>
+<div id="map"></div>
+<!-- 기타 내용 -->
+<ul>
+    <li th:each="place : ${places}">
+        <p>타입: <span th:text="${place.type}">타입</span></p>
+        <p>이름: <span th:text="${place.name}">이름</span></p>
+        <p>주소: <span th:text="${place.address}">주소</span></p>
+        <p>위도: <span th:text="${place.latitude}">위도</span></p>
+        <p>경도: <span th:text="${place.longitude}">경도</span></p>
+        <p>
+        <form th:action="@{/placelist/{type}/{id}(type=${place.type}, id=${place.id})}" method="get">
+            <input type="hidden" name="type" th:value="${type}">
+            <input type="hidden" name="distance" th:value="${distance}">
+            <input type="hidden" name="lat" th:value="${lat}">
+            <input type="hidden" name="lng" th:value="${lng}">
+            <button type="submit">상세보기</button>
+        </form>
+        </p>
+        <!--    <p><a th:href="@{/placelist/{type}/{id}(type=${place.type}, id=${place.id})}">상세보기</a></p>-->
+        <p>거리: <span th:text="${place.distance}">거리</span></p>
+    </li>
+</ul>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var placesJson = /*[[${placesjson}]]*/ '[]';
+
+    function initMap() {
+        var userLocation = {lat: /*[[${lat}]]*/ 0, lng: /*[[${lng}]]*/ 0};
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 14,
+            center: userLocation
+        });
+
+        new google.maps.Marker({
+            position: userLocation,
+            map: map,
+            title: '현재 위치',
+            icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 10,
+                fillColor: 'blue',
+                fillOpacity: 0.5,
+                strokeColor: 'blue',
+                strokeWeight: 1
+            }
+        })
+
+        var places = JSON.parse(placesJson);
+        places.forEach(function (place) {
+            var marker = new google.maps.Marker({
+                position: {lat: place.latitude, lng: place.longitude},
+                map: map,
+                title: place.name // 마커의 이름을 설정
+            });
+
+            var detailUrl = '/placelist/' + place.type + '/' + place.id;
+            // 정보 창을 생성
+            var infowindow = new google.maps.InfoWindow({
+                content: '<h3>' + place.name + '</h3>' + place.address + '<br>' + '<a href="' + detailUrl + '">상세보기</a>'
+            });
+
+            // 마커를 클릭했을 때 정보 창을 열도록 설정
+            marker.addListener('click', function () {
+                infowindow.open(map, marker);
+            });
+        });
+    }
+
+    /*]]>*/
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNQ61cBbLdB9vJit1qJiDgaF47IiYt1lA&callback=initMap"></script>
+</body>
+</html>

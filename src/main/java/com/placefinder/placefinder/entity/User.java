@@ -33,4 +33,9 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password; // 비밀번호
 
+    // 비밀번호 수정
+    public void updatePassword(String password) {
+        this.password = password;
+    }
+
 }

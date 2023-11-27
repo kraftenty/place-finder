@@ -14,5 +14,6 @@ public class PlaceDTO {
     private double latitude;
     private double longitude;
     private String type;
+    private String distance;
 
 }

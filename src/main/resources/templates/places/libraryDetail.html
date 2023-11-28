@@ -32,7 +32,7 @@
 <!-- 평가 -->
 <!-- 댓글달기 -->
 <form method="post" th:action="@{/placelist/library/{placeId}/save-evaluation(placeId=${library.id})}">
-<!--    <input type="hidden" name="placeType" value="library">-->
+<!-    <input type="hidden" name="placeType" value="library">-->
     <input type="hidden" name="username" th:value="${user.name}">
     <!--뒤로가기 보전을 위한 부분-->
     <input type="hidden" name="type" th:value="${type}">

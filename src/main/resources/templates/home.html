@@ -8,7 +8,7 @@
 <h1>Home</h1>
 <hr>
 <p th:text="'안녕하세요, ' + ${username} + '님!'" ></p>
-
+<p id="locationLoadingStatus">위치정보 로딩중...</p>
 <form id="locationForm" action="/place/search/result" method="get" onsubmit="return checkIfGeoLocationLoaded()">
     <label><input type="radio" name="type" value="library" checked>도서관</label>
     <label><input type="radio" name="type" value="publicfacility">공공시설</label>
@@ -43,9 +43,11 @@
 
     function checkIfGeoLocationLoaded() {
         if (isGeoLocationLoaded) {
+            document.getElementById("locationLoadingStatus").textContent = "위치정보 로딩 완료"; // 상태 업데이트
             return true;
         } else {
             alert("위치 정보를 가져오는 중입니다. 잠시 후에 다시 시도해주세요.");
+            document.getElementById("locationLoadingStatus").textContent = "위치정보 로딩중..."; // 상태 업데이트
             return false;
         }
     }
@@ -58,6 +60,7 @@
                 isGeoLocationLoaded = true;
                 document.getElementById("lat").value = position.coords.latitude;
                 document.getElementById("lng").value = position.coords.longitude;
+                document.getElementById("locationLoadingStatus").textContent = "위치정보 로딩 완료"; // 상태 업데이트
             }, function(error) {
                 alert("위치 정보를 가져오는 데 실패했습니다: " + error.message);
             });

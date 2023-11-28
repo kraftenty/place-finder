@@ -38,6 +38,14 @@
 </ul>
 <script th:inline="javascript">
     /*<![CDATA[*/
+    var modelType = /*[[${type}]]*/ 'defaultType';
+    var modelDistance = /*[[${distance}]]*/ 'defaultDistance';
+    var modelLat = /*[[${lat}]]*/ 'defaultLat';
+    var modelLng = /*[[${lng}]]*/ 'defaultLng';
+    /*]]>*/
+</script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
     var placesJson = /*[[${placesjson}]]*/ '[]';
 
     function initMap() {
@@ -72,7 +80,18 @@
             var detailUrl = '/placelist/' + place.type + '/' + place.id;
             // 정보 창을 생성
             var infowindow = new google.maps.InfoWindow({
-                content: '<h3>' + place.name + '</h3>' + place.address + '<br>' + '<a href="' + detailUrl + '">상세보기</a>'
+                content: '<div>'
+                    + '<h3>' + place.name + '</h3>'
+                    + place.address + '<br>'
+                    // form 태그를 추가
+                    + '<form action="/placelist/' + place.type + '/' + place.id + '" method="get">'
+                    + '<input type="hidden" name="type" value="' + modelType + '">'
+                    + '<input type="hidden" name="distance" value="' + modelDistance + '">'
+                    + '<input type="hidden" name="lat" value="' + modelLat + '">'
+                    + '<input type="hidden" name="lng" value="' + modelLng + '">'
+                    + '<button type="submit">상세보기</button>'
+                    + '</form>'
+                    + '</div>'
             });
 
             // 마커를 클릭했을 때 정보 창을 열도록 설정

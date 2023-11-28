@@ -106,5 +106,4 @@ public class CsvFileParser {
         return toilets;
     }
 
-
 }

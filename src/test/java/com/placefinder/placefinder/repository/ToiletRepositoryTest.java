@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ToiletRepositoryTest {
@@ -21,14 +20,16 @@ class ToiletRepositoryTest {
     @Rollback(false)
     public void testToilet() throws Exception {
         // given
-        Toilet toilet = new Toilet();
-        toilet.setName("toiletA");
-        toilet.setAddress("서울특별시 무슨구 무슨동 무슨로 123");
-        toilet.setLatitude(37.123456);
-        toilet.setLongitude(127.123456);
-        toilet.setOpeningHours("09:00 ~ 18:00");
-        toilet.setEmergencyBell("여자화장실");
-        toilet.setDiaperChange("없음");
+        Toilet toilet = new Toilet(
+                null,
+                "toiletA",
+                "서울특별시 무슨구 무슨동 무슨로 123",
+                37.123456,
+                127.123456,
+                "09:00 ~ 18:00",
+                "여자화장실",
+                "없음"
+        );
 
         // when
         Long savedId = toiletRepository.save(toilet);

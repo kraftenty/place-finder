@@ -28,10 +28,10 @@ public class PublicFacility {
     private Double longitude; // 경도
 
     @Column(name = "phone", nullable = true)
-    private String phone; // 전화번호
+    private String phone; // 전화번호. 없으면 null
 
     @Column(name = "website", nullable = true)
-    private String website; // 홈페이지
+    private String website; // 홈페이지. 없으면 null
 
     @Column(name = "closed_days", nullable = false)
     private String closedDays; // 휴관일

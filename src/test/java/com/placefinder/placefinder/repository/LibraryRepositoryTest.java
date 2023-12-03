@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class LibraryRepositoryTest {
@@ -19,26 +18,28 @@ class LibraryRepositoryTest {
     @Test
     @Transactional
     @Rollback(false)
-    public void testLibrary() throws Exception{
+    public void testLibrary() throws Exception {
         // given
-        Library library = new Library();
-        library.setName("libraryA");
-        library.setAddress("서울특별시 무슨구 무슨동 무슨로 123");
-        library.setLatitude(37.123456);
-        library.setLongitude(127.123456);
-        library.setPhone("02-123-4567");
-        library.setWebsite("www.librarya.com");
-        library.setClosedDays("매주 월요일");
-        library.setWeekDayOpening("09:00");
-        library.setWeekDayClosing("18:00");
-        library.setSaturdayOpening("10:00");
-        library.setSaturdayClosing("17:00");
-        library.setHolidayOpening("12:00");
-        library.setHolidayClosing("16:00");
-        library.setBookCount(30000L);
-        library.setAvailableBookRentCount(3L);
-        library.setAvailableBookRentDays(14L);
-        library.setSeatCapacity(400L);
+        Library library = new Library(
+                null,
+                "libraryA",
+                "서울특별시 무슨구 무슨동 무슨로 123",
+                37.123456,
+                127.123456,
+                "02-123-4567",
+                "www.librarya.com",
+                "매주 월요일",
+                "09:00",
+                "18:00",
+                "10:00",
+                "17:00",
+                "12:00",
+                "16:00",
+                30000L,
+                3L,
+                14L,
+                400L
+        );
 
         // when
         Long savedId = libraryRepository.save(library);

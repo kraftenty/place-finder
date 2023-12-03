@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Place Search</title>
+</head>
+<body>
+<h1>Place Search</h1>
+<form id="locationForm" action="/place/search/result" method="post" onsubmit="return checkIfGeoLocationLoaded()">
+    <label><input type="radio" name="type" value="library" checked>도서관</label>
+    <label><input type="radio" name="type" value="publicfacility">공공시설</label>
+    <label><input type="radio" name="type" value="toilet">화장실</label>
+
+    <br>
+    <input type="range" min="1" max="5" step="1" value="3" name="distance"> 1km ~ 5km
+    <br>
+    <input type="hidden" id="lat" name="lat" value="">
+    <input type="hidden" id="lng" name="lng" value="">
+    <button type="submit">위치 기반 검색</button>
+</form>
+
+<script>
+    let isGeoLocationLoaded = false;
+
+    function checkIfGeoLocationLoaded() {
+        if (isGeoLocationLoaded) {
+            return true;
+        } else {
+            alert("위치 정보를 가져오는 중입니다. 잠시 후에 다시 시도해주세요.");
+            return false;
+        }
+    }
+
+
+    function getUserLocation() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                console.log("위도: " + position.coords.latitude + ", 경도: " + position.coords.longitude);
+                isGeoLocationLoaded = true;
+                document.getElementById("lat").value = position.coords.latitude;
+                document.getElementById("lng").value = position.coords.longitude;
+            }, function(error) {
+                alert("위치 정보를 가져오는 데 실패했습니다: " + error.message);
+            });
+        } else {
+            alert("위치 정보를 지원하지 않는 브라우저입니다.");
+        }
+    }
+
+    getUserLocation();
+</script>
+</body>
+</html>

@@ -1,12 +1,12 @@
 package com.placefinder.placefinder.entity;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "evaluations")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor

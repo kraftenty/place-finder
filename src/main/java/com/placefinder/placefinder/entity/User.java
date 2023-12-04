@@ -1,6 +1,5 @@
 package com.placefinder.placefinder.entity;
 
-
 import com.placefinder.placefinder.dto.UserDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Table(name = "users")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,6 +16,7 @@ public class User {
 
     /**
      * UserDTO를 받아서 User 객체를 생성한다.
+     * 
      * @param dto
      */
     public User(UserDTO dto) {

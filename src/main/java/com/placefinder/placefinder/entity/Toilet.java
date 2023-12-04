@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "toilets")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,7 +28,7 @@ public class Toilet {
     @Column(name = "longitude", nullable = false)
     private Double longitude; // 경도
 
-    @Column(name= "opening_hours", nullable = false)
+    @Column(name = "opening_hours", nullable = false)
     private String openingHours; // 개방시간
 
     @Column(name = "emergency_bell", nullable = false)

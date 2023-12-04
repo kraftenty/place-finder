@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "public_facilities")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor

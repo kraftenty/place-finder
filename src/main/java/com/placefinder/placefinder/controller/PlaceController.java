@@ -23,12 +23,6 @@ public class PlaceController {
     private final PlaceService placeService;
 
 
-    @GetMapping(value = "/search")
-    public String search() {
-        return "places/search";
-    }
-
-
     @GetMapping(value = "/search/result")
     public String searchResult(
             @RequestParam String type,

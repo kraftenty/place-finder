@@ -2,67 +2,97 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Public Facility Detail</title>
+    <title>공공시설 상세 정보 - PlaceFinder</title>
+    <!-- Bootstrap CSS 추가 -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .details {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .comment-section {
+            margin-top: 20px;
+            height: 500px; /* 댓글 섹션의 높이 설정 */
+            overflow-y: auto; /* 세로 스크롤 설정 */
+        }
+
+        .row {
+            margin-top: 20px;
+        }
+    </style>
 </head>
+
 <body>
-<h1>Public Facility Detail</h1>
-<a th:href="@{/place/search/result(type=${type}, distance=${distance}, lat=${lat}, lng=${lng})}">
-    <button>목록으로</button>
-</a>
-<div>
-    <p>ID: <span th:text="${publicFacility.id}"></span></p>
-    <p>이름: <span th:text="${publicFacility.name}"></span></p>
-    <p>주소: <span th:text="${publicFacility.address}"></span></p>
-    <p>위도: <span th:text="${publicFacility.latitude}"></span></p>
-    <p>경도: <span th:text="${publicFacility.longitude}"></span></p>
-    <p>전화번호: <span th:text="${publicFacility.phone} ?: '정보 없음'"></span></p>
-    <p>홈페이지: <a th:href="${publicFacility.website}" th:text="${publicFacility.website} ?: '정보 없음'"></a></p>
-    <p>휴관일: <span th:text="${publicFacility.closedDays}"></span></p>
-    <p>평일 운영 시작: <span th:text="${publicFacility.weekDayOpening}"></span></p>
-    <p>평일 운영 종료: <span th:text="${publicFacility.weekDayClosing}"></span></p>
-    <p>주말 운영 시작: <span th:text="${publicFacility.weekendOpening}"></span></p>
-    <p>주말 운영 종료: <span th:text="${publicFacility.weekendClosing}"></span></p>
-    <p>이용료: <span th:text="${publicFacility.fee}"></span></p>
-    <p>수용가능인원: <span th:text="${publicFacility.capacity} ?: '정보 없음'"></span></p>
-    <p>부대시설정보: <span th:text="${publicFacility.amenities} ?: '정보 없음'"></span></p>
-    <p>신청방법: <span th:text="${publicFacility.howToApply} ?: '정보 없음'"></span></p>
-</div>
-<!-- 평가 -->
-<!-- 댓글달기 -->
-<form method="post" th:action="@{/placelist/publicfacility/{placeId}/save-evaluation(placeId=${publicFacility.id})}">
-    <input type="hidden" name="username" th:value="${user.name}">
-    <!--뒤로가기 보전을 위한 부분-->
-    <input type="hidden" name="type" th:value="${type}">
-    <input type="hidden" name="distance" th:value="${distance}">
-    <input type="hidden" name="lat" th:value="${lat}">
-    <input type="hidden" name="lng" th:value="${lng}">
-    <!--뒤로가기 보전을 위한 부분-->
-    <input type="text" name="comment" placeholder="댓글을 입력하세요" required>
-    <input type="submit" value="댓글 작성">
-</form>
-<!-- 댓글표시 -->
-<div>
-    <h3>댓글</h3>
-    <div th:each="evaluation : ${evaluations}">
-        <span th:text="${evaluation.getUsername()}"></span> :
-        <span th:text="${evaluation.comment}"></span>
-        <div th:if="${evaluation.getUsername()} == ${user.name}">
-            <form method="post" th:action="@{/evaluation/delete-evaluation}">
-                <input type="hidden" name="evaluationId" th:value="${evaluation.id}">
-                <input type="hidden" name="placeType" value="publicfacility">
-                <input type="hidden" name="placeId" th:value="${publicFacility.id}">
-                <!--뒤로가기 보전을 위한 부분-->
+<div class="container mt-5">
+    <h1 class="text-center">공공시설 상세 정보</h1>
+    <a th:href="@{/place/search/result(type=${type}, distance=${distance}, lat=${lat}, lng=${lng})}"
+       class="btn btn-secondary ml-2">목록으로
+    </a>
+    <hr>
+
+    <div class="row">
+        <!-- 정보 리스트 -->
+        <div class="details col-md-6">
+            <br>
+            <h3><span th:text="${publicFacility.name}"></span></h3>
+            <i><span th:text="${publicFacility.address}"></span></i>
+            <hr>
+            <p>전화번호 : <span th:text="${publicFacility.phone} ?: '정보 없음'"></span></p>
+            <p>홈페이지 : <a th:href="${publicFacility.website}" th:text="${publicFacility.website} ?: '정보 없음'"></a></p>
+            <hr>
+            <p>휴관일: <span th:text="${publicFacility.closedDays}"></span></p>
+            <p>평일 운영 시간: <span th:text="${publicFacility.weekDayOpening}"></span> - <span th:text="${publicFacility.weekDayClosing}"></span></p>
+            <p>주말 운영 시간: <span th:text="${publicFacility.weekendOpening}"></span> - <span th:text="${publicFacility.weekendClosing}"></span></p>
+            <hr>
+            <p>이용료: <span th:text="${publicFacility.fee}"></span></p>
+            <p>수용가능인원: <span th:text="${publicFacility.capacity} ?: '정보 없음'"></span></p>
+            <p>부대시설정보: <span th:text="${publicFacility.amenities} ?: '정보 없음'"></span></p>
+            <p>신청방법: <span th:text="${publicFacility.howToApply} ?: '정보 없음'"></span></p>
+        </div>
+
+
+        <!-- 댓글 섹션 -->
+        <div class="comment-section col-md-6">
+            <h3>댓글</h3>
+            <!-- 댓글 입력 폼 -->
+            <form method="post"
+                  th:action="@{/placelist/publicfacility/{placeId}/save-evaluation(placeId=${publicFacility.id})}" class="form-inline mb-3">
+                <input type="hidden" name="username" th:value="${user.name}">
                 <input type="hidden" name="type" th:value="${type}">
                 <input type="hidden" name="distance" th:value="${distance}">
                 <input type="hidden" name="lat" th:value="${lat}">
                 <input type="hidden" name="lng" th:value="${lng}">
-                <!--뒤로가기 보전을 위한 부분-->
-                <input type="submit" value="삭제">
+
+                <input type="text" class="form-control" name="comment" placeholder="댓글을 입력하세요" required
+                       style="display: inline-block; flex-grow: 1;">&nbsp;
+                <button type="submit" class="btn btn-primary" style="display: inline-block">댓글 작성</button>
             </form>
+
+            <!-- 댓글 표시 -->
+            <div th:each="evaluation : ${evaluations}" class="mb-2">
+                <b><span th:text="${evaluation.getUsername()}"></span></b>&nbsp;&nbsp;
+                <small><span th:text="${evaluation.comment}"></span></small>
+                <div th:if="${evaluation.getUsername()} == ${user.name}" class="d-inline-block ml-2">
+                    <form method="post" th:action="@{/evaluation/delete-evaluation}" class="form-inline">
+                        <input type="hidden" name="evaluationId" th:value="${evaluation.id}">
+                        <input type="hidden" name="placeType" value="publicfacility">
+                        <input type="hidden" name="placeId" th:value="${publicFacility.id}">
+                        <input type="hidden" name="type" th:value="${type}">
+                        <input type="hidden" name="distance" th:value="${distance}">
+                        <input type="hidden" name="lat" th:value="${lat}">
+                        <input type="hidden" name="lng" th:value="${lng}">
+                        <button type="submit" class="btn btn-danger btn-sm">삭제</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <br>
     </div>
 </div>
-<!--end 평가-->
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -2,35 +2,57 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>유저 로그인</title>
-  <style>
-    .form-normal {
-      border-color: blue;
-    }
-    .form-error {
-      border-color: red;
-    }
-  </style>
+    <title>유저 로그인 - PlaceFinder</title>
+    <!-- Bootstrap CSS 추가 -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .form-normal {
+            border-color: #cccccc;
+        }
+        .form-error {
+            border-color: red;
+        }
+        .container {
+            width: 40%;
+        }
+        #logo-container {
+            text-align: center;
+        }
+        #logo {
+            border-radius: 10px;
+        }
+    </style>
 </head>
 <body>
-<h1>유저 로그인</h1>
-<hr>
-<form role="form" action="/user/login" th:object="${userDTO}" method="post">
+<div class="container mt-5">
+    <h1 class="text-center">유저 로그인</h1>
+    <hr>
+    <div id="logo-container">
+        <img src="/placefinder.png" id="logo" alt="placefinder" width="100%"/>
+    </div>
+    <form role="form" action="/user/login" th:object="${userDTO}" method="post" class="my-4">
 
-    <label th:for="name">이름</label>
-    <input type="text" th:field="*{name}" class="form-normal" placeholder="이름을 입력하세요."
-           th:class="${#fields.hasErrors('name')}? 'form-error' : 'form-normal'">
-    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">이름 관련 오류 메시지</p>
-    <br>
+        <div class="form-group">
+            <label th:for="name">이름</label>
+            <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력하세요."
+                   th:classappend="${#fields.hasErrors('name')}? 'form-error' : 'form-normal'">
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger">이름 관련 오류 메시지</p>
+        </div>
 
-    <label th:for="password">비밀번호</label>
-    <input type="password" th:field="*{password}" class="form-normal" placeholder="비밀번호를 입력하세요."
-           th:class="${#fields.hasErrors('password')}? 'form-error' : 'form-normal'">
-    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">비밀번호 관련 오류 메시지</p>
+        <div class="form-group">
+            <label th:for="password">비밀번호</label>
+            <input type="password" th:field="*{password}" class="form-control" placeholder="비밀번호를 입력하세요."
+                   th:classappend="${#fields.hasErrors('password')}? 'form-error' : 'form-normal'">
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger">비밀번호 관련 오류 메시지</p>
+        </div>
 
-    <button type="submit">로그인</button>
-</form>
-<a href="/user/new"><button>회원가입</button></a>
-
+        <button type="submit" class="btn btn-primary">로그인</button>
+        <a href="/user/new" class="btn btn-secondary ml-2">회원가입</a>
+    </form>
+</div>
+<!-- Bootstrap JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -2,40 +2,70 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Place Search Results</title>
+    <title>위치기반 검색 결과 - PlaceFinder</title>
+    <!-- Bootstrap CSS 추가 -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <style>
         #map {
-            height: 500px;
+            height: 90vh; /* 브라우저 높이에 맞게 조정 */
             width: 100%;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .container {
+            display: flex;
+            height: 90vh;
+        }
+
+        .place-list {
+            overflow-y: auto; /* 스크롤 가능하도록 설정 */
+        }
+        .table {
+            font-size: small;
         }
     </style>
 </head>
 <body>
-<h1>Place Search Results</h1>
-<a href="/"><button>홈으로</button></a>
-<hr>
-<div id="map"></div>
-<!-- 기타 내용 -->
-<ul>
-    <li th:each="place : ${places}">
-        <p>타입: <span th:text="${place.type}">타입</span></p>
-        <p>이름: <span th:text="${place.name}">이름</span></p>
-        <p>주소: <span th:text="${place.address}">주소</span></p>
-        <p>위도: <span th:text="${place.latitude}">위도</span></p>
-        <p>경도: <span th:text="${place.longitude}">경도</span></p>
-        <p>
-        <form th:action="@{/placelist/{type}/{id}(type=${place.type}, id=${place.id})}" method="get">
-            <input type="hidden" name="type" th:value="${type}">
-            <input type="hidden" name="distance" th:value="${distance}">
-            <input type="hidden" name="lat" th:value="${lat}">
-            <input type="hidden" name="lng" th:value="${lng}">
-            <button type="submit">상세보기</button>
-        </form>
-        </p>
-        <!--    <p><a th:href="@{/placelist/{type}/{id}(type=${place.type}, id=${place.id})}">상세보기</a></p>-->
-        <p>거리: <span th:text="${place.distance}">거리</span></p>
-    </li>
-</ul>
+<div class="container mt-5">
+    <!-- 장소 목록 -->
+    <div class="place-list col-md-6">
+        <h1>위치기반 검색 결과</h1>
+        <a href="/">
+            <button class="btn btn-secondary">홈으로</button>
+        </a>
+        <hr>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>이름</th>
+<!--                <th>주소</th>-->
+                <th>거리</th>
+                <th>상세보기</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="place : ${places}">
+                <td th:text="${place.name}">이름</td>
+<!--                <td th:text="${place.address}">주소</td>-->
+                <td th:text="${place.distance}">거리</td>
+                <td>
+                    <form th:action="@{/placelist/{type}/{id}(type=${place.type}, id=${place.id})}" method="get">
+                        <input type="hidden" name="type" th:value="${type}">
+                        <input type="hidden" name="distance" th:value="${distance}">
+                        <input type="hidden" name="lat" th:value="${lat}">
+                        <input type="hidden" name="lng" th:value="${lng}">
+                        <button type="submit" class="btn btn-primary btn-sm">상세보기</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 지도 -->
+    <div id="map" class="col-md-6"></div>
+</div>
 <script th:inline="javascript">
     /*<![CDATA[*/
     var modelType = /*[[${type}]]*/ 'defaultType';
@@ -81,7 +111,7 @@
             // 정보 창을 생성
             var infowindow = new google.maps.InfoWindow({
                 content: '<div>'
-                    + '<h3>' + place.name + '</h3>'
+                    + '<h5>' + place.name + '</h5>'
                     + place.address + '<br>'
                     // form 태그를 추가
                     + '<form action="/placelist/' + place.type + '/' + place.id + '" method="get">'
@@ -89,7 +119,7 @@
                     + '<input type="hidden" name="distance" value="' + modelDistance + '">'
                     + '<input type="hidden" name="lat" value="' + modelLat + '">'
                     + '<input type="hidden" name="lng" value="' + modelLng + '">'
-                    + '<button type="submit">상세보기</button>'
+                    + '<button type="submit" class="btn btn-primary btn-sm">상세보기</button>'
                     + '</form>'
                     + '</div>'
             });
